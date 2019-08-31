@@ -84,14 +84,28 @@
 			{0,0,0,0}
 		};
 		
-		struct variable variables_KoolproxyConf_KpIPList[] = {
+	struct variable variables_KoolproxyConf_KpIPList[] = {
 			{"koolproxy_mac_x", "14", NULL, FALSE},
 			{"koolproxy_ip_x", "17", NULL, FALSE},
 			{"koolproxy_name_x", "24", NULL, FALSE},
 			{"koolproxy_ip_road", "24", NULL, FALSE},
 			{0,0,0,0}
 		};
+	
+	struct variable variables_AdbybyConf_AdIPList[] = {
+			{"adbybyip_mac_x", "14", NULL, FALSE},
+			{"adbybyip_ip_x", "17", NULL, FALSE},
+			{"adbybyip_name_x", "24", NULL, FALSE},
+			{"adbybyip_ip_road_x", "24", NULL, FALSE},
+			{0,0,0,0}
+		};
 
+	struct variable variables_AdbybyConf_AdRULESList[] = {
+			{"adbybyrules_x", "24", NULL, FALSE},
+			{"adbybyrules_road_x", "24", NULL, FALSE},
+			{0,0,0,0}
+		};
+		
 	struct variable variables_LANHostConfig_VPNSACLList[] = {
 			{"vpns_user_x", "32", NULL, FALSE},
 			{"vpns_pass_x", "32", NULL, FALSE},
@@ -877,6 +891,32 @@
 	};
 #endif
 
+#if defined(APP_ADBYBY)
+    struct variable variables_AdbybyConf[] = {
+			{"adbyby_enable", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_ip_x", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_rules_x", "", NULL, EVM_RESTART_ADBYBY},
+			{"hosts_ad", "", NULL, EVM_RESTART_ADBYBY},
+			{"tv_hosts", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_set", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_adb_update", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_update", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_update_hour", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbyby_update_min", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbybyip_staticnum_x", "", NULL, EVM_RESTART_ADBYBY},
+			{"adbybyrules_staticnum_x", "", NULL, EVM_RESTART_ADBYBY},
+			{"scripts.adbyby_rules.sh", "File", NULL, EVM_RESTART_ADBYBY},
+			{"scripts.adbyby_blockip.sh", "File", NULL, EVM_RESTART_ADBYBY},
+			{"scripts.adbyby_adblack.sh", "File", NULL, EVM_RESTART_ADBYBY},
+			{"scripts.adbyby_adesc.sh", "File", NULL, EVM_RESTART_ADBYBY},
+			{"scripts.adbyby_adhost.sh", "File", NULL, EVM_RESTART_ADBYBY},
+			{"scripts.adbyby_config_script.sh", "File", NULL, EVM_RESTART_ADBYBY},
+			{"AdIPList", "Group", ARGV((char*)variables_AdbybyConf_AdIPList, "8", "55", "adbybyip_staticnum_x"), EVM_RESTART_ADBYBY},
+			{"AdRULESList", "Group", ARGV((char*)variables_AdbybyConf_AdRULESList, "8", "55", "adbybyrules_staticnum_x"), EVM_RESTART_ADBYBY},
+			{0,0,0,0}
+	};
+#endif
+
 	struct variable variables_WLANConfig11b[] = {
 			{"rt_ssid", "", NULL, EVM_RESTART_WIFI2},
 			{"rt_ssid2", "", NULL, EVM_RESTART_WIFI2},
@@ -996,6 +1036,9 @@
 #if defined(APP_KOOLPROXY)
 		{"KoolproxyConf",		variables_KoolproxyConf},
 #endif
+#if defined(APP_ADBYBY)
+		{"AdbybyConf",		variables_AdbybyConf},
+#endif
 		{"LANGUAGE",			variables_Language},
 		{0,0}
 	};
@@ -1078,6 +1121,9 @@
 #endif
 #if defined(APP_KOOLPROXY)
 		{EVM_RESTART_KOOLPROXY,		EVT_RESTART_KOOLPROXY,		RCN_RESTART_KOOLPROXY,	0},
+#endif
+#if defined(APP_ADBYBY)
+		{EVM_RESTART_ADBYBY,		EVT_RESTART_ADBYBY,		RCN_RESTART_ADBYBY,	0},
 #endif
 #if defined(APP_ALIDDNS)
 		{EVM_RESTART_ALIDDNS,		EVT_RESTART_ALIDDNS,		RCN_RESTART_ALIDDNS,	0},
